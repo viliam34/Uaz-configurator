@@ -14,9 +14,7 @@ body {
     left: 0;
     outline: none;
 }
-.widget{
-    border-radius: 1em;
-}
+
 .lil-gui {
     --background-color: #f6f6f6;
     --text-color: #3d3d3d;
@@ -73,24 +71,4 @@ body {
     height: 2em;
     border-radius: 0.8em;
     position: static;
-}
-.lil-gui input[type=checkbox] {
-    appearance: none;
-    width: 3em;
-    height: 3em;
-    border-radius: var(--widget-border-radius);
-    text-align: center;
-    cursor: pointer;
-}
-.lil-gui input[type=checkbox]:checked:before {
-    font-family: "lil-gui";
-    content: "✓";
-    font-size: 3em;
-    line-height: 1em;
-}
-
-
-.lil-gui input[type=text], .lil-gui input[type=number] {
-    padding: var(--widget-padding);
-    display: none;
 }

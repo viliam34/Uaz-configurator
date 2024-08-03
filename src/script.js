@@ -11,11 +11,6 @@ import gsap from 'gsap'
 var model
 var model_roof
 var model_roof_rack
-var force_bumper_rear
-var force_bumper_front
-var normal_bumper_front
-var normal_bumper_rear
-var snorchel_model
 
 
 
@@ -84,16 +79,6 @@ gltfLoader.load(
         for (let child in scene.children[1].children){
             console.log(child.name)
         }
-
-
-        normal_bumper_rear = scene.children[1].children[192] // rear bumper_normal
-        normal_bumper_front = scene.children[1].children[191] // front bumper_normal
-        model_roof_rack = scene.children[1].children[193] // roof rack
-        force_bumper_front = scene.children[1].children[194] // force bumper front
-        force_bumper_rear = scene.children[1].children[195] // force bumper rear
-        snorchel_model = scene.children[1].children[196] // snorchel
-
-
         console.log(scene.children[1].children[192].name) // rear bumper_normal
         console.log(scene.children[1].children[191].name) // front bumper_normal
         console.log(scene.children[1].children[193].name) // roof rack
@@ -107,7 +92,7 @@ gltfLoader.load(
         scene.children[1].children[196].visible = false  
 
 
-        
+
         
 
 
@@ -118,6 +103,33 @@ gltfLoader.load(
         ; // Object
     }
 )
+
+/**
+ * Floor
+ */
+/*const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(100, 100),
+    new THREE.MeshStandardMaterial({
+        color: '#F8F9F9',
+        metalness: 0,
+        roughness: 0.5
+    })
+)
+floor.receiveShadow = true
+floor.rotation.x = - Math.PI * 0.5
+floor.name = "floor"
+scene.add(floor)
+*/
+/**
+ * Lights
+ */
+//const ambientLight = new THREE.AmbientLight(0xffffff, 100)
+//scene.add(ambientLight)
+
+
+
+
+
 /**
  * Sizes
  */
@@ -169,7 +181,6 @@ var snorchel_controller
 var bumper_controller
 
 
-
 //GUI
 gui.title( 'Buchanka' )
 roof_controller = gui.add(UazObject, 'roof', { "Standard": 0, "High roof": 1, "Folding roof": 2 })
@@ -215,6 +226,12 @@ let previousTime = 0
 
 
 
+
+// change materials
+
+
+
+
 // rotate models
 document.addEventListener('keydown', function (event) {
     switch (event.keyCode) {
@@ -242,10 +259,10 @@ var previous_roof = 0
 
 roof_rack_controller.onChange( function( v ) {   
     if (v == false){
-            model_roof_rack.visible = false
+            scene.children[1].children[193].visible = false
         }
         if (v == true){
-            model_roof_rack.visible = true
+            scene.children[1].children[193].visible = true
         }} 
 
 )
@@ -253,17 +270,17 @@ roof_rack_controller.onChange( function( v ) {
 bumper_controller.onChange(
     function(input){
         if (input == 0){ // add normal bumper
-            normal_bumper_rear.visible = true
-            normal_bumper_front.visible = true 
-            force_bumper_front.visible = false     
-            force_bumper_rear.visible = false
+            scene.children[1].children[191].visible = true
+            scene.children[1].children[192].visible = true 
+            scene.children[1].children[194].visible = false     
+            scene.children[1].children[195].visible = false
         }
         if (input == 1){ // add force bumper
             //hide normal bumpers
-            normal_bumper_front.visible = false
-            normal_bumper_rear.visible = false
-            force_bumper_front.visible = true
-            force_bumper_rear.visible = true
+            scene.children[1].children[191].visible = false
+            scene.children[1].children[192].visible = false
+            scene.children[1].children[194].visible = true
+            scene.children[1].children[195].visible = true
         }
     }
 )
@@ -271,28 +288,29 @@ roof_controller.onChange(
     function(input){
         if (input == 0){
             roof_rack_controller.enable()
-            
         }
         if(input == 1){
             roof_rack_controller.disable()
-            scene.children[1].children[193].visible = false
         }
         if(input == 2){
             roof_rack_controller.disable()
-            scene.children[1].children[193].visible = false
         }
     }
 )
 snorchel_controller.onChange(
     function(input){
         if(input == false){
-            snorchel_model.visible = false
+            scene.children[1].children[196].visible = false
         }
         if(input == true){
-            snorchel_model.visible = true
+            scene.children[1].children[196].visible = true
         }
     }
 )
+
+
+var is_printed_out = 0
+
 
 
 const tick = () => {
