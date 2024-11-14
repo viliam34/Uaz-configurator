@@ -5,7 +5,7 @@ Configurator of legendary off-road, create your own custom UAZ!
 
 ## How to run configurator in your browser?
 1. Download [Node.js](https://nodejs.org/en/download/).\
-2.Download zip of this repository, unzip the file
+2.Download zip of this repository, unzip the file \
 4.Through command prompt navigate to the unzipped file\
 5.Type npm install \
 6.Type npm run dev \
